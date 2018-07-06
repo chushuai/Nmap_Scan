@@ -16,6 +16,7 @@ def add_task(i, p, a, t):
     for x in i:
         temp += str(x) + ','
     data['target'] = temp.rstrip(',')
+    
     data['port'] = str(p)
     data['arg'] = str(a)
     data['thread'] = str(t)
