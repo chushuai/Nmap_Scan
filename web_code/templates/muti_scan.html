@@ -5,13 +5,10 @@
     <meta charset="utf-8">
     <link href="static/css/lib/bootstrap.min.css" rel="stylesheet">
     <link href="static/css/lib/style.css" rel="stylesheet">
+    <link href="static/css/lib/fileinput.min.css" media="all" rel="stylesheet" type="text/css"/>  
+    <link href="static/css/lib/fileinput-rtl.min.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="static/css/lib/font-awesome.css" media="all" rel="stylesheet" type="text/css" />
     <title></title>
-    <script src="static/js/lib/jquery.min.js"></script>
-    <script type="text/javascript">
-        $(function(){
-            setInterval(function () { $(".refresh").load(location.href + " .refresh"); }, 5000);
-        })
-    </script>
 </head>
 
 <body>
@@ -31,9 +28,9 @@
                             任務
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="nmap">掃描</a>
+                            <a class="dropdown-item" href="/scan">掃描(單一)</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">攻擊</a>
+                            <a class="dropdown-item" href="/mutiscan">掃描(清單)</a>
                         </div>
                     </li>
                     <li class="nav-item">
@@ -47,12 +44,9 @@
     <div class="row">
         <div class="col-4" style="height:820px;overflow:auto;">
             <form action="add_task" method="POST">
-                <input class="form-control-inline mr-sm-0 mb-sm-1" type="text" placeholder="目標主機IP(例:192.168.11.9)" aria-label="text" name="search_host"
-                    style="width:40%">
-                <input class="form-control-inline mr-sm-0 mb-sm-1" type="text" placeholder="Port(例:80,443,3389)" aria-label="text" name="search_port"
-                    style="width:40%">
-                <input class="form-control-inline mr-sm-0 mb-sm-1" type="text" placeholder="Threads" aria-label="text" name="search_threads"
-                    style="width:18%">
+                <div class="file-loading">
+                    <input id="input-b7" name="input-b7[]" multiple type="file" class="file" data-allowed-file-extensions='["csv", "txt"]'>
+                </div>
                 <div id="accordion">
                     <div class="card">
                         <div class="card-header" id="headingOne">
@@ -181,30 +175,30 @@
         <div class="col-8">
             <div class="tab-content" id="nav-tabContent" style="height:820px;overflow:auto;">
                 <div class="refresh">
-                <table class='table table-bordered'>
-                    <thead class='thead-light'>
-                        <tr>
-                            <th scope='col'>IP(s)</th>
-                            <th scope='col'>掃描狀態</th>
-                            <th scope='col'>port(s)</th>
-                            <th scope='col'>Nmap參數</th>
-                            <th scope='col'>執行緒數</th>
-                            <th scope='col'>掃描開始時間</th>
-                            <th scope='col'>掃描結束時間</th>
-                        </tr>
-                        {%for task in task_list%}
-                        <tr>
-                            <td>{{task.target}}</td>
-                            <td>{{task.status}}</td>
-                            <td>{{task.port}}</td>
-                            <td>{{task.arg}}</td>
-                            <td>{{task.thread}}</td>
-                            <td>{{task.start_time_man}}</td>
-                            <td>{{task.end_time_man}}</td>
-                        </tr>
-                        {%endfor%}
-                    </thead>
-                </table>
+                    <table class='table table-bordered'>
+                        <thead class='thead-light'>
+                            <tr>
+                                <th scope='col'>IP(s)</th>
+                                <th scope='col'>掃描狀態</th>
+                                <th scope='col'>port(s)</th>
+                                <th scope='col'>Nmap參數</th>
+                                <th scope='col'>執行緒數</th>
+                                <th scope='col'>掃描開始時間</th>
+                                <th scope='col'>掃描結束時間</th>
+                            </tr>
+                            {%for task in task_list%}
+                            <tr>
+                                <td>{{task.target}}</td>
+                                <td>{{task.status}}</td>
+                                <td>{{task.port}}</td>
+                                <td>{{task.arg}}</td>
+                                <td>{{task.thread}}</td>
+                                <td>{{task.start_time_man}}</td>
+                                <td>{{task.end_time_man}}</td>
+                            </tr>
+                            {%endfor%}
+                        </thead>
+                    </table>
                 </div>
             </div>
         </div>
@@ -212,6 +206,15 @@
     <script src="static/js/lib/jquery.min.js"></script>
     <script src="static/js/lib/bootstrap.min.js"></script>
     <script src="static/js/lib/popper.min.js"></script>
+    <script src="static/js/lib/plugins/sortable.js" type="text/javascript"></script>
+    <script src="static/js/lib/fileinput.min.js" type="text/javascript"></script>
+    <script src="static/js/lib/locales/fr.js" type="text/javascript"></script>
+    <script src="static/js/lib/locales/es.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            setInterval(function () { $(".refresh").load(location.href + " .refresh"); }, 5000);
+        })
+    </script>
 </body>
 <footer>
 </footer>

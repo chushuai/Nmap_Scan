@@ -46,7 +46,7 @@ def scan():
 
     # debug mode
     command = [
-        'python2.7', '/home/playerke/Nmap_Server/scan_code/muti_nmap_mongo.py']
+        'python2.7', '/home/playerke/Nmap_Scan/scan_code/muti_nmap_mongo.py']
     if request.method == 'POST':
         search_host = request.form.get('search_host')
         search_port = request.form.get('search_port')
@@ -86,8 +86,8 @@ def scan():
     return render_template('add_scan.html', command=command, show_text=show_text)
 
 
-@app.route("/nmap", methods=['GET', 'POST'])
-def nmap_gui():
+@app.route("/scan", methods=['GET', 'POST'])
+def single_scan():
     scan_mode_list = [
         {
             'id': '1',
@@ -127,8 +127,50 @@ def nmap_gui():
         },
     ]
     task_list = mon.toybox.task_list.find()
-    return render_template('nmap_gui.html', scan_mode_list=scan_mode_list, ping_list=ping_list, speed_list=speed_list, other_list=other_list, task_list=task_list)
+    return render_template('single_scan.html', scan_mode_list=scan_mode_list, ping_list=ping_list, speed_list=speed_list, other_list=other_list, task_list=task_list)
 
+@app.route("/mutiscan", methods=['GET', 'POST'])
+def muti_scan():
+    scan_mode_list = [
+        {
+            'id': '1',
+            'arg': '-sT',
+            'name': 'TCP Connect Scan',
+            'text': u'利用TCP協定，建立完整的3向交握連線後在進行掃描，雖然準確率比較高，但易留下紀錄。'
+        },
+    ]
+    ping_list = [
+        {
+            'id': '1',
+            'arg': '-P0',
+            'name': 'Don\'t Ping',
+            'text': u'執行掃描前，不目標主機。'
+        },
+    ]
+    speed_list = [
+        {
+            'id': '1',
+            'arg': '-T0',
+            'name': 'Paranoid',
+            'text': u'每五秒鐘發送一個封包。'
+        },
+    ]
+    other_list = [
+        {
+            'id': '1',
+            'arg': '-f',
+            'name': 'Fragmentation',
+            'text': u'發送碎片封包，資料長度為8byte，增加封包過濾器、防火牆與IDS的檢查難度。'
+        },
+        {
+            'id': '2',
+            'arg': '-6',
+            'name': 'IPv6',
+            'text': u'支援掃描IPv6TAT。'
+        },
+    ]
+    task_list = mon.toybox.task_list.find()
+    return render_template('muti_scan.html', scan_mode_list=scan_mode_list, ping_list=ping_list, speed_list=speed_list, other_list=other_list, task_list=task_list)
 
 @app.route("/overview", methods=['GET', 'POST'])
 def overview():
