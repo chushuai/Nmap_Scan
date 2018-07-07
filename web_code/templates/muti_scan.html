@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <link href="static/css/lib/bootstrap.min.css" rel="stylesheet">
     <link href="static/css/lib/style.css" rel="stylesheet">
-    <link href="static/css/lib/fileinput.min.css" media="all" rel="stylesheet" type="text/css"/>  
-    <link href="static/css/lib/fileinput-rtl.min.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="static/css/lib/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="static/css/lib/fileinput-rtl.min.css" media="all" rel="stylesheet" type="text/css" />
     <link href="static/css/lib/font-awesome.css" media="all" rel="stylesheet" type="text/css" />
     <title></title>
 </head>
@@ -43,10 +43,15 @@
     </header>
     <div class="row">
         <div class="col-4" style="height:820px;overflow:auto;">
-            <form action="add_task" method="POST">
-                <div class="file-loading">
-                    <input id="input-b7" name="input-b7[]" multiple type="file" class="file" data-allowed-file-extensions='["csv", "txt"]'>
-                </div>
+            <form method="post" role="form" enctype="multipart/form-data">               
+                    <input id="input_list" name="input_list" multiple type="file" class="file" placeholder='上傳清單(副檔名限制為.txt)' data-show-preview='true'>
+            </form>
+            <form action="add_tasklist" method="POST">
+                <input type="hidden" name='test' value='{{test}}'>
+                <input class="form-control-inline mr-sm-0 mb-sm-1" type="text" placeholder="Port(例:80,443,3389)" aria-label="text" name="search_port"
+                    style="width:40%">
+                <input class="form-control-inline mr-sm-0 mb-sm-1" type="text" placeholder="Threads" aria-label="text" name="search_threads"
+                    style="width:18%">
                 <div id="accordion">
                     <div class="card">
                         <div class="card-header" id="headingOne">
@@ -208,8 +213,8 @@
     <script src="static/js/lib/popper.min.js"></script>
     <script src="static/js/lib/plugins/sortable.js" type="text/javascript"></script>
     <script src="static/js/lib/fileinput.min.js" type="text/javascript"></script>
-    <script src="static/js/lib/locales/fr.js" type="text/javascript"></script>
     <script src="static/js/lib/locales/es.js" type="text/javascript"></script>
+    <script src="static/js/lib/locales/zh-TW.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
             setInterval(function () { $(".refresh").load(location.href + " .refresh"); }, 5000);
