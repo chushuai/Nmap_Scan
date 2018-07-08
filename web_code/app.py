@@ -40,12 +40,13 @@ mon = MongoClient('mongodb://' + 'root' + ':' + 'example' + '@127.0.0.1')
 @app.route("/add_task", methods=['GET', 'POST'])
 def scan():
     # alpine mode
-    # command = [
-    #    'python2.7', '/scan_code/muti_nmap_mongo.py']
+    command = [
+        'python2.7', '/scan_code/muti_nmap_mongo.py']
 
     # debug mode
-    command = [
-        'python2.7', '/home/playerke/Nmap_Scan/scan_code/muti_nmap_mongo.py']
+    #command = [
+    #    'python2.7', '/home/playerke/Nmap_Scan/scan_code/muti_nmap_mongo.py']
+
     if request.method == 'POST':
         search_host = request.form.get('search_host')
         search_port = request.form.get('search_port')
@@ -260,7 +261,7 @@ def mutiscan():
     command = [
         'python2.7', '/home/playerke/Nmap_Scan/scan_code/muti_nmap_mongo.py']
     if request.method == 'POST':
-        test =  request.form.get('test')     
+        search_hostlist =  request.form.get('search_hostlis')     
         search_port = request.form.get('search_port')
         search_threads = request.form.get('search_threads')
 
@@ -270,9 +271,11 @@ def mutiscan():
         other_listf = request.form.get('other_list-f')
         other_list6 = request.form.get('other_list-6')
 
-    iph = '/home/playerke/Nmap_Scan/upload_list/' + test
-    command.append('-l')
-    command.append(iph)
+    #load_list = '/home/playerke/Nmap_Scan/upload_list/' + search_hostlist
+    load_list = '/upload_list/' + search_hostlist
+    if search_hostlist != '':
+        command.append('-l')
+        command.append(load_list)
     if search_port != '':
         command.append('-p')
         command.append(search_port)
@@ -311,13 +314,13 @@ def allowed_file(filename):
 
 @app.route("/mutiscan", methods=['GET', 'POST'])
 def muti_scan(): 
-    test = ''      
+    search_hostlis = ''      
     if request.method == 'POST':
         file = request.files['input_list']
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            test = filename
+            search_hostlis = filename
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     
     scan_mode_list = [
@@ -480,7 +483,7 @@ def muti_scan():
         },
     ]
     task_list = mon.toybox.task_list.find()
-    return render_template('muti_scan.html', test=test, scan_mode_list=scan_mode_list, ping_list=ping_list, speed_list=speed_list, other_list=other_list, task_list=task_list)
+    return render_template('muti_scan.html', search_hostlis=search_hostlis, scan_mode_list=scan_mode_list, ping_list=ping_list, speed_list=speed_list, other_list=other_list, task_list=task_list)
 
 
 @app.route("/overview", methods=['GET', 'POST'])
