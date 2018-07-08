@@ -29,10 +29,10 @@ RUN set -xe \
 
 VOLUME /scan_code /shared /web_code
 COPY *.conf /config/
-COPY /scan_code/*.py /scan_code
-COPY /scan_code/nselib /usr/share/nmap/nselib
-COPY /scan_code/scripts /usr/share/nmap/scripts
-COPY /scan_code/nse_main.lua /usr/share/nmap
+COPY /scan_code/*.py /scan_code/
+COPY /scan_code/nselib /usr/share/nmap/nselib/
+COPY /scan_code/scripts /usr/share/nmap/scripts/
+COPY /scan_code/nse_main.lua /usr/share/nmap/
 COPY /web_code /web_code/
 
 EXPOSE 137/udp 138/udp 139 445 5200
