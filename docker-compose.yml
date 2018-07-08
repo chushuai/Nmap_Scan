@@ -25,7 +25,7 @@ services:
 
   namp_server:
     container_name: namp_server
-    image: astroicers/nmap_server
+    image: playerke1007/nmap_scan
     restart: always
     #volumes:
     #  - /path/to/share/:/shared

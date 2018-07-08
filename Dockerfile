@@ -21,10 +21,11 @@ RUN set -xe \
     #&& pip install BeautifulSoup4 \
     && pip install pymongo \
     && rm -rf /var/cache/apk/* \
-    && mkdir /config /scan_code /shared /web_code \
+    && mkdir /config /scan_code /shared /web_code /upload_list \
     && chmod 777 /shared \
     && chmod 777 /web_code \
-    && chmod 777 /scan_code
+    && chmod 777 /scan_code \
+    && chmod 777 /upload_list
 
 VOLUME /scan_code /shared /web_code
 COPY *.conf /config/
