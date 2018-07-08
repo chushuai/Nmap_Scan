@@ -254,12 +254,12 @@ def single_scan():
 @app.route("/add_tasklist", methods=['GET', 'POST'])
 def mutiscan():
     # alpine mode
-    # command = [
-    #    'python2.7', '/scan_code/muti_nmap_mongo.py']
+    command = [
+        'python2.7', '/scan_code/muti_nmap_mongo.py']
 
     # debug mode
-    command = [
-        'python2.7', '/home/playerke/Nmap_Scan/scan_code/muti_nmap_mongo.py']
+    #command = [
+    #    'python2.7', '/home/playerke/Nmap_Scan/scan_code/muti_nmap_mongo.py']
     if request.method == 'POST':
         search_hostlist =  request.form.get('search_hostlis')     
         search_port = request.form.get('search_port')
@@ -314,13 +314,13 @@ def allowed_file(filename):
 
 @app.route("/mutiscan", methods=['GET', 'POST'])
 def muti_scan(): 
-    search_hostlis = ''      
+    search_hostlist = ''      
     if request.method == 'POST':
         file = request.files['input_list']
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            search_hostlis = filename
+            search_hostlist = filename
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     
     scan_mode_list = [
@@ -483,7 +483,7 @@ def muti_scan():
         },
     ]
     task_list = mon.toybox.task_list.find()
-    return render_template('muti_scan.html', search_hostlis=search_hostlis, scan_mode_list=scan_mode_list, ping_list=ping_list, speed_list=speed_list, other_list=other_list, task_list=task_list)
+    return render_template('muti_scan.html', search_hostlist=search_hostlist, scan_mode_list=scan_mode_list, ping_list=ping_list, speed_list=speed_list, other_list=other_list, task_list=task_list)
 
 
 @app.route("/overview", methods=['GET', 'POST'])
