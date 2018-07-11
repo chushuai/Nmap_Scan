@@ -270,9 +270,11 @@ def mutiscan():
         speed_list = request.form.get('speed_list')
         other_listf = request.form.get('other_list-f')
         other_list6 = request.form.get('other_list-6')
-
-    load_list = '/home/playerke/Nmap_Scan/upload_list/' + str(search_hostlist)
-    #load_list = '/upload_list/' + search_hostlist
+    # alpine mode
+    load_list = '/upload_list/' + search_hostlist
+    # debug mode
+    #load_list = '/home/playerke/Nmap_Scan/upload_list/' + str(search_hostlist)
+    
     if search_hostlist != '':
         command.append('-l')
         command.append(load_list)
