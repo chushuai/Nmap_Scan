@@ -48,7 +48,7 @@ def scan():
     #    'python2.7', '/home/playerke/Nmap_Scan/scan_code/muti_nmap_mongo.py']
 
     if request.method == 'POST':
-        search_host = request.form.get('search_host')
+        search_host = request.form.get('search_hostlist')
         search_port = request.form.get('search_port')
         search_threads = request.form.get('search_threads')
 
@@ -261,7 +261,7 @@ def mutiscan():
     #command = [
     #    'python2.7', '/home/playerke/Nmap_Scan/scan_code/muti_nmap_mongo.py']
     if request.method == 'POST':
-        search_hostlist =  request.form.get('search_hostlis')     
+        search_hostlist =  request.form.get('search_hostlist')     
         search_port = request.form.get('search_port')
         search_threads = request.form.get('search_threads')
 
@@ -271,8 +271,8 @@ def mutiscan():
         other_listf = request.form.get('other_list-f')
         other_list6 = request.form.get('other_list-6')
 
-    #load_list = '/home/playerke/Nmap_Scan/upload_list/' + search_hostlist
-    load_list = '/upload_list/' + search_hostlist
+    load_list = '/home/playerke/Nmap_Scan/upload_list/' + str(search_hostlist)
+    #load_list = '/upload_list/' + search_hostlist
     if search_hostlist != '':
         command.append('-l')
         command.append(load_list)
@@ -320,7 +320,7 @@ def muti_scan():
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            search_hostlist = filename
+            search_hostlist = str(filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     
     scan_mode_list = [
