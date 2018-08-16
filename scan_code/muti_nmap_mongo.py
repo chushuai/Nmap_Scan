@@ -176,19 +176,20 @@ def py_scan(target, port, Narg):
                 num2 += 1
     # if host close
     except:
-        data_temp2 = {
-            '_id': target + "_",
-            'time_pc': str(time.time()),
-            'time_man': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
-        }
-        # if data not exist
-        try:
-            mon.toybox.ip_list.insert_one(data_temp2)
-        # if data exist
-        except:
-            pass
-        print data_temp2
-        print 'scanning %s is error or closed.!' % target
+        pass
+    #    data_temp2 = {
+    #       '_id': target + "_",
+    #       'time_pc': str(time.time()),
+    #        'time_man': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+    #    }
+    #    # if data not exist
+    #    try:
+    #        mon.toybox.ip_list.insert_one(data_temp2)
+    #    # if data exist
+    #    except:
+    #        pass
+    #    print data_temp2
+     #   print 'scanning %s is error or closed.!' % target
 
 
 def process_data(threadName, q):

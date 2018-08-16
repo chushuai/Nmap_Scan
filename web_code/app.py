@@ -48,7 +48,7 @@ def scan():
     #    'python2.7', '/home/playerke/Nmap_Scan/scan_code/muti_nmap_mongo.py']
 
     if request.method == 'POST':
-        search_host = request.form.get('search_hostlist')
+        search_host = request.form.get('search_host')
         search_port = request.form.get('search_port')
         search_threads = request.form.get('search_threads')
 
